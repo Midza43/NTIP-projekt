@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function register() {
+export default function Register() {
   return (
     <div className="flex flex-col justify-center items-center p-4 min-w-[600px]">
         <h1 className="text-2xl">REGISTER</h1>

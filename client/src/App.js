@@ -1,7 +1,7 @@
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import RoutesList from './routes/routesList';
-
+import { useState } from 'react';
 function App() {
   const [auth, setAuth] = useState(false);
   return (

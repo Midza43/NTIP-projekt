@@ -14,7 +14,7 @@ function EditAutomobil() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(() => {    
     // Fetch the automobil data based on the ID
     const fetchData = async () => {
       try {
@@ -23,10 +23,10 @@ function EditAutomobil() {
           throw new Error('Failed to fetch automobil data');
         }
 
-        const data = await response.json();
+        const data = await response.json();        
         setEditedAutomobil(data);
       } catch (error) {
-        console.error('Error fetching automobil data:', error.message);
+        console.error('Error fetching automobil data:', error.message); 
       }
     };
 
@@ -38,7 +38,6 @@ function EditAutomobil() {
     e.preventDefault();
 
     try {
-      // Make a PUT request to update the automobil
       const response = await fetch(`http://localhost:3001/api/automobili/${id}`, {
         method: 'PUT',
         headers: {
@@ -46,6 +45,10 @@ function EditAutomobil() {
         },
         body: JSON.stringify(editedAutomobil),
       });
+      
+      console.log(JSON.stringify(editedAutomobil));
+      console.log(id);
+      console.log(response);
 
       if (!response.ok) {
         throw new Error('Failed to update the automobil');

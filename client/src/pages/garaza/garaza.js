@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import React from 'react'
 import List from './List'
 
 export default function Garaza(id, model, gorivo, transmisija, pogon, opis) {
 
   const [garaza, setAutomobili] = useState([]);
-     
+  const navigate = useNavigate();
   useEffect(() => {
     // Function to fetch data
     const fetchData = async () => {
@@ -26,6 +26,21 @@ export default function Garaza(id, model, gorivo, transmisija, pogon, opis) {
     fetchData();
   }, []); // Empty dependency array means this effect runs once after the initial render>
 
+  const handleDelete = async (id) => {
+    try {
+      // Make a DELETE request to the API
+      const response = await fetch(`http://localhost:3001/api/automobili/${id}`, {
+        method: 'DELETE',
+      });
+      navigate('/garaza');
+
+      // Update the local state without the deleted automobili
+      setAutomobili((prevAutomobili) => prevAutomobili.filter((list) => list.id !== id));
+    } catch (error) {
+      console.error('Error deleting automobil:', error.message);
+    }
+  };
+
   return (
     <div className="container mx-auto mt-8">
       <div className='flex w-full justify-between'>
@@ -35,7 +50,7 @@ export default function Garaza(id, model, gorivo, transmisija, pogon, opis) {
             </Link>
             </div>
         {garaza.map((list) => (
-            <List key={list.id} {...list} />
+            <List key={list.id} {...list} onDelete={handleDelete} />
         ))}
         
         </div>    

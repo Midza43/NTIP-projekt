@@ -12,7 +12,7 @@ const automobiliController = {
   
     getAutomobiliById: (req, res) => {
       const automobilId = req.params.id;
-      Automobili.getById(automobilId, (err, book) => {
+      Automobili.getById(automobilId, (err, Automobili) => {
         if (err) {
           return res.status(500).json({ error: 'Error fetching automobil from the database.' });
         }
@@ -36,19 +36,19 @@ const automobiliController = {
     updateAutomobili: (req, res) => {
       const AutomobiliId = req.params.id;
       const updatedAutomobili = req.body;
-      Automobili.update(AutomobiliId, updatedAutomobili, (err, updated) => {
+
+      Automobili.update(AutomobiliId, updatedAutomobili, (err) => {
         if (err) {
           return res.status(500).json({ error: 'Error updating automobili in the database.' });
         }
-        if (!updated) {
-          return res.status(404).json({ error: 'Automobili not found' });
-        }
-        res.json(updated);
+        
+        res.json(true);
       });
     },
   
     deleteAutomobili: (req, res) => {
       const AutomobiliId = req.params.id;
+      console.log(res)
       Automobili.delete(AutomobiliId, (err, deletedAutomobili) => {
         if (err) {
           return res.status(500).json({ error: 'Error deleting automobili from the database.' });

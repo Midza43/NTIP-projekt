@@ -25,6 +25,9 @@ class Automobili {
       callback
     );
   }
+  static delete(automobilId, callback) {
+    db.run('DELETE FROM automobili WHERE id = ?', [automobilId], callback);
+  }
 
 }
 

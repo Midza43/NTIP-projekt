@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 
-export default function List ({ id, model, gorivo, transmisija, pogon, opis }) {
+export default function List ({ id, model, gorivo, transmisija, pogon, opis, onDelete }) {
   return (
     <div className="flex flex-inline bg-gray-200 shadow-md p-4 mb-4 rounded-md">
     <div className="bg-gray-200 shadow-md p-4 mb-4 rounded-md mx-auto w-full">
@@ -16,8 +16,11 @@ export default function List ({ id, model, gorivo, transmisija, pogon, opis }) {
         <Link to={`/edit-automobil/${id}`}  className='bg-green-200 rounded-md p-4'>
           Uredi
         </Link>
+        <button className='bg-red- rounded-md mr-2 p-4' onClick={() => onDelete(id)}>Obriši</button>
       </div>
-    </div>
+      
+        
+  </div> 
     
     
   );

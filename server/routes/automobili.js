@@ -1,7 +1,9 @@
 const express = require('express');
 const automobiliController = require('../controller/automobiliController');
-
+const authenticateToken = require('../middlewares/authMiddleware');
 const router = express.Router();
+
+router.use(authenticateToken);
 
 /**
  * @swagger

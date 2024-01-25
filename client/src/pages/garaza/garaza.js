@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import React from 'react'
 import List from './List'
+import Cookies from 'js-cookie';
 
 export default function Garaza(id, model, gorivo, transmisija, pogon, opis) {
 
@@ -11,10 +12,15 @@ export default function Garaza(id, model, gorivo, transmisija, pogon, opis) {
     // Function to fetch data
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/automobili');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
+        const authToken = Cookies.get('authData');
+        const response = await fetch('http://localhost:3001/api/automobili', {
+              headers: {
+                Authorization: `${authToken}`, // Include the authorization token in the headers
+              },
+            });
+            if (!response.ok) {
+              throw new Error('Failed to fetch data');
+            }
 
         const data = await response.json();
         setAutomobili(data);

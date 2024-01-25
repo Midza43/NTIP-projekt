@@ -1,10 +1,11 @@
 import React from 'react'
 import {Link, useNavigate} from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 export default function Header({auth, setAuth}) {
    const navigate = useNavigate();
    const handleLogout = () => {
      setAuth(false);
+     Cookies.remove('authData');
      navigate('/login');
    }; 
   return (

@@ -7,6 +7,12 @@ db.run(`
     gorivo TEXT,
     transmisija TEXT,
     pogon TEXT,
+    godiste INTEGER,
+    konjskihsnaga INTEGER,
+    obrtniMoment INTEGER,
+    boja TEXT,
+    ECU INTEGER,
+    tuning TEXT,
     opis TEXT
   )
 `);

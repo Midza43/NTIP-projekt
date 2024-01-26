@@ -45,26 +45,27 @@ export default function Login({setAuth}) {
     }
   };
     return (
+      <div className="container mx-auto mt-8">
       <div className="flex flex-col justify-center items-center p-4 min-w-[600px]">
-        <h1 className="text-2xl">LOGIN</h1>
+        <h1 className="text-2xl">Prijavi se</h1>
         <form onSubmit={handleSubmit} id="login_form" className="w-full">
           <div className="p-2 flex flex-col">
-            <label className="text-gray-500">Username</label>
+            <label className="text-gray-500">Korisničko ime</label>
             <input
               className="border-2 bg-gray-100"
               name="username"
-              placeholder="Username"
+              placeholder="Korisničko ime"
               type="text"
               value={formData.username}
               onChange={handleChange}
             />
           </div>
           <div className="p-2 flex flex-col">
-            <label className="text-gray-500">Password</label>
+            <label className="text-gray-500">Lozinka</label>
             <input
               className="border-2 bg-gray-100"
               name="password"
-              placeholder="Password"
+              placeholder="Lozinka"
               type="password"
               value={formData.password}
               onChange={handleChange}
@@ -72,10 +73,11 @@ export default function Login({setAuth}) {
           </div>
           <div className="p-2 flex flex-col">
             <button type="submit" className="w-full bg-green-500 text-white text-xl p-2">
-              Login
+              Prijavi se
             </button>
           </div>
         </form>
+      </div>
       </div>
     );
   }

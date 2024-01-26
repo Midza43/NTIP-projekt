@@ -34,10 +34,15 @@ export default function Garaza(id, model, gorivo, transmisija, pogon, opis) {
 
   const handleDelete = async (id) => {
     try {
+      const authToken = Cookies.get('authData');
       // Make a DELETE request to the API
       const response = await fetch(`http://localhost:3001/api/automobili/${id}`, {
-        method: 'DELETE',
-      });
+      method: 'DELETE',
+      headers: {
+    Authorization: `${authToken}`, // Include the authorization token in the headers
+  },
+});
+
       navigate('/garaza');
 
       // Update the local state without the deleted automobili

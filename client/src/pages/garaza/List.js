@@ -13,10 +13,10 @@ export default function List ({ id, model, gorivo, transmisija, pogon, opis, onD
       <p className="mt-2">{opis}</p>
     </div>
     <div className='flex justify-end items-center m-2'>
-        <Link to={`/edit-automobil/${id}`}  className='bg-green-200 rounded-md p-4'>
+        <Link to={`/edit-automobil/${id}`}  className='bg-green-200 rounded-md mr-2 p-4'>
           Uredi
         </Link>
-        <button className='bg-red- rounded-md mr-2 p-4' onClick={() => onDelete(id)}>Obriši</button>
+        <button className='bg-red-200 rounded-md p-4' onClick={() => onDelete(id)}>Obriši</button>
       </div>
       
         

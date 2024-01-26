@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 function EditAutomobil() {
   const { id } = useParams();
 
@@ -15,18 +15,22 @@ function EditAutomobil() {
   const navigate = useNavigate();
 
   useEffect(() => {    
-    // Fetch the automobil data based on the ID
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/automobili/${id}`);
+        const authToken = Cookies.get('authData');
+        const response = await fetch(`http://localhost:3001/api/automobili/${id}`, {
+          headers: {
+            Authorization: `${authToken}`, // Include the authorization token in the headers
+          },
+        });
         if (!response.ok) {
-          throw new Error('Failed to fetch automobil data');
+          throw new Error('Failed to fetch automobili data');
         }
 
-        const data = await response.json();        
+        const data = await response.json();
         setEditedAutomobil(data);
       } catch (error) {
-        console.error('Error fetching automobil data:', error.message); 
+        console.error('Error fetching automobili data:', error.message);
       }
     };
 
@@ -38,10 +42,12 @@ function EditAutomobil() {
     e.preventDefault();
 
     try {
+      const authToken = Cookies.get('authData');
       const response = await fetch(`http://localhost:3001/api/automobili/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `${authToken}`, // Include the authorization token in the headers
         },
         body: JSON.stringify(editedAutomobil),
       });

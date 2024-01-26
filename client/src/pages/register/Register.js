@@ -36,43 +36,45 @@ export default function Register() {
   };
 
   return (
+    <div className="container mx-auto mt-8">
     <div className="flex flex-col justify-center items-center p-4 min-w-[600px]">
-      <h1 className="text-2xl">REGISTER</h1>
+      <h1 className="text-2xl">Registruj se</h1>
       <form onSubmit={handleSubmit} id="register_form" className="w-full">
         <div className="p-2 flex flex-col">
-          <label className="text-gray-500">Username</label>
+          <label className="text-gray-500">Korisničko ime</label>
           <input className="border-2 bg-gray-100" 
                 name="username" 
-                placeholder ="Username" 
+                placeholder ="Korisničko ime" 
                 type="text"
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           />
         </div>
         <div className="p-2 flex flex-col">
-          <label className="text-gray-500">Password</label>
+          <label className="text-gray-500">Lozinka</label>
           <input className="border-2 bg-gray-100" 
                 name="password" 
-                placeholder="Password" 
+                placeholder="Lozinka" 
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           />
         </div>
         <div className="p-2 flex flex-col">
-          <label className="text-gray-500">Confirm password</label>
+          <label className="text-gray-500">Potvrdi lozinku</label>
           <input className="border-2 bg-gray-100" 
                 name="confirm_password" 
-                placeholder="Password" 
+                placeholder="Potvrdi lozinku" 
                 type="password" 
                 value={formData.confirm_password}
                 onChange={(e) => setFormData({ ...formData, confirm_password: e.target.value })}
           />
         </div>
         <div className="p-2 flex flex-col">
-          <button type="submit" for="register_form" className="w-full bg-green-500 text-white text-xl p-2">Register</button>
+          <button type="submit" for="register_form" className="w-full bg-green-500 text-white text-xl p-2">Registruj se</button>
         </div>
       </form>
+    </div>
     </div>
   )
 }

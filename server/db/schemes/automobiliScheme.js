@@ -13,6 +13,7 @@ db.run(`
     boja TEXT,
     ECU INTEGER,
     tuning TEXT,
+    tuningStage TEXT,
     opis TEXT
   )
 `);

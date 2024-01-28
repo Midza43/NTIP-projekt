@@ -58,7 +58,10 @@ const automobiliController = {
         }
         res.json(deletedAutomobili);
       });
-    },
+    },    
+    
+
+
   };
   
   module.exports = automobiliController;

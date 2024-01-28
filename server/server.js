@@ -7,6 +7,7 @@ const port = 3001;
 
 const db = require('./db/baza');
 const automobiliRoutes = require('./routes/automobili');
+const projektiRoutes = require('./routes/projekti')
 const authRoutes = require('./routes/auth');
 app.use(express.json());
 app.use(cors());
@@ -26,7 +27,9 @@ const specs = swaggerJsdoc(options);
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api/automobili', automobiliRoutes);
+app.use('/api/projekti', projektiRoutes);
 app.use('/api/auth', authRoutes);
+
 
 // Start the server
 app.listen(port, () => {

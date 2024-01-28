@@ -4,7 +4,7 @@ import React from 'react'
 import List from './List'
 import Cookies from 'js-cookie';
 
-export default function Garaza(id, model, gorivo, transmisija, pogon, opis) {
+export default function Garaza(id, model, gorivo, transmisija, pogon, godiste, konjskihSnaga, obrtniMoment, boja, ECU, tuning, tuningStage, opis) {
 
   const [garaza, setAutomobili] = useState([]);
   const navigate = useNavigate();

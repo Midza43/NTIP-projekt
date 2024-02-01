@@ -1,16 +1,44 @@
 import React from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useState,useEffect } from 'react';
 export default function Header({auth, setAuth}) {
-   const navigate = useNavigate();
+   const [broj, setBroj] = useState(0);
+   const navigate = useNavigate();   
    const handleLogout = () => {
      setAuth(false);
      Cookies.remove('authData');
      navigate('/login');
-   }; 
+   };
+   
+   useEffect(() => {    
+      const fetchData = async () => {
+        try {
+          const authToken = Cookies.get('authData');
+          const response = await fetch('http://localhost:3001/api/zadaci', {
+                headers: {
+                  Authorization: `${authToken}`, // Include the authorization token in the headers
+                },
+              });
+              if (!response.ok) {
+                throw new Error('Failed to fetch data');
+              }
+  
+          const data = await response.json();
+          setBroj(data.length)
+          
+  
+          
+        } catch (error) {
+          console.error('Error fetching data:', error.message);
+        }
+      };
+      // Call the fetch data function
+      fetchData();
+    }, []);
+   
   return (
    
-    
       <header>
         
 <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -31,6 +59,7 @@ export default function Header({auth, setAuth}) {
 WORKSHOP APP
 </Link>
 </li>
+
          <li class="flex justify-space-between flex-wrap"> 
          {!auth ? (
           <>        
@@ -40,12 +69,8 @@ WORKSHOP APP
             <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"><Link to="/logout" onClick={handleLogout} className="mr-2">Odjava</Link></button>
           )}
          </li>
-         <li>
-            <Link to="/projekti" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <img width="48" height="48" src="https://img.icons8.com/dusk/64/group-of-projects.png" alt="group-of-projects"/>
-               <span class="ml-3">Projekti</span>
-            </Link>
-         </li>
+         {auth && (
+         <>
          <li>
             <Link to="/garaza" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <img width="48" height="48" src="https://img.icons8.com/officel/80/garage.png" alt="garage"/>
@@ -54,12 +79,30 @@ WORKSHOP APP
             </Link>
          </li>
          <li>
-            <Link to="/zadaci" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <img width="48" height="48" src="https://img.icons8.com/color/48/task--v1.png" alt="task--v1"/>
-               <span class="flex-1 ml-3 whitespace-nowrap">Zadaci</span>
-               <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
+            <Link to="/projekti" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <img width="48" height="48" src="https://img.icons8.com/dusk/64/group-of-projects.png" alt="group-of-projects"/>
+               <span class="ml-3">Projekti</span>
             </Link>
          </li>         
+         <li>
+         <Link to="/zadaci" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+         <img width="48" height="48" src="https://img.icons8.com/color/48/task--v1.png" alt="task--v1"/>
+         <span class="flex-1 ml-3 whitespace-nowrap">Lista</span>
+         <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+         {broj}         
+         </span>
+
+         </Link>
+
+         </li> 
+         </>
+          )}
+          <li>
+            <Link to="/prodaja" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <img width="48" height="48" src="https://img.icons8.com/external-others-pike-picture/50/external-bag-car-dealership-shop-others-pike-picture.png" alt="group-of-projects"/>
+               <span class="ml-3">Prodaja</span>
+            </Link>
+         </li>                  
       </ul>
    </div>
 </aside>

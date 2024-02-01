@@ -111,6 +111,19 @@ const projektiController = {
       return res.status(500).json({ error: 'Internal server error.' });
     }
   },
+  dubinsko: async (req, res) => {
+    const id = req.params.id;
+    const { model } = req.body;
+    try {      
+      
+      await Modeli.createProjekat(id, model, `Odrađeno dubinsko pranje!`);
+  
+      return res.status(200).json({ success: true, message: 'Successfully updated and added new project.' });
+    } catch (error) {
+      console.error('Error ugradiRezonantniIzduv:', error.message);
+      return res.status(500).json({ error: 'Internal server error.' });
+    }
+  },
 };
 
 

@@ -25,6 +25,7 @@ router.put('/:id', projektiController.lakirajAutomobil);
 router.put('/ugradnja/:id', projektiController.ugradiRezonantniIzduv);
 router.put('/ugradnja2/:id', projektiController.stage2);
 router.put('/dpf/:id', projektiController.dpf);
+router.put('/dubinsko/:id', projektiController.dubinsko);
 router.get('/:id', projektiController.getAutomobiliByModel);
 
 module.exports = router;

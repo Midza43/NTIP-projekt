@@ -40,6 +40,9 @@ class Modeli {
   static dpf(automobilId, model, odradjeno, callback) {
     db.run('INSERT INTO projekti (projekat_id, model, odradjeno) VALUES (?, ?, ?)', [automobilId, model, odradjeno], callback);
   }
+  static dubinsko(automobilId, model, odradjeno, callback) {
+    db.run('INSERT INTO projekti (projekat_id, model, odradjeno) VALUES (?, ?, ?)', [automobilId, model, odradjeno], callback);
+  }
 }
 
 module.exports = Modeli;

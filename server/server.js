@@ -8,6 +8,7 @@ const port = 3001;
 const db = require('./db/baza');
 const automobiliRoutes = require('./routes/automobili');
 const projektiRoutes = require('./routes/projekti')
+const zadaciRoutes = require('./routes/zadaci')
 const authRoutes = require('./routes/auth');
 app.use(express.json());
 app.use(cors());
@@ -29,6 +30,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api/automobili', automobiliRoutes);
 app.use('/api/projekti', projektiRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/zadaci', zadaciRoutes)
 
 
 // Start the server

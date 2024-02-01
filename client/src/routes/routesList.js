@@ -8,6 +8,7 @@ import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import AddAutomobil from '../pages/garaza/AddAutomobil';
 import EditAutomobil from '../pages/garaza/EditAutomobil';
+import Prodaja from '../pages/prodaja/prodaja';
 function RoutesList({auth, setAuth}) {
   return (
       <Routes>
@@ -21,6 +22,7 @@ function RoutesList({auth, setAuth}) {
         <Route path="add-automobil" element={<AddAutomobil />} />
         <Route path="edit-automobil/:id" element={<EditAutomobil />} />        
         <Route path="register" element={<Register />} />
+        <Route path="prodaja" element={<Prodaja />} />
       </Route>
       </Routes>
   );

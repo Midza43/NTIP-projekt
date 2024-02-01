@@ -302,6 +302,46 @@ export default function Projekti() {
       }, 3000);
     }
   };
+
+  const dubinsko = async (e) => {
+    e.preventDefault();
+
+    try {
+      const izabraniModel = modeli.filter((m) => m.model.includes(selectedModel));
+      editedAutomobil.id = izabraniModel[0].id;
+      editedAutomobil.model = izabraniModel[0].model;
+      const authToken = Cookies.get('authData');
+
+      const response = await fetch(`http://localhost:3001/api/projekti/dubinsko/${editedAutomobil.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${authToken}`, // Include the authorization token in the headers
+        },
+        body: JSON.stringify(editedAutomobil),
+      });
+
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error('Failed to update the automobil');
+      }
+
+      navigate('/projekti');
+      setSuccessMessage('Uspješno izvršeno!');
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Error updating automobil:', error.message);
+      setFailMessage('Neuspješno izvršeno!');
+      setShowNotification1(true);
+      setTimeout(() => {
+        setShowNotification1(false);
+      }, 3000);
+    }
+  };
   
 
   return (
@@ -340,6 +380,9 @@ export default function Projekti() {
         <button onClick={() => setOpenedSection('DPF')} className="text-white p-2 rounded">
         <img src="https://static.thenounproject.com/png/2864007-200.png" alt="DPF" width = "128px" className="mr-2" />
         </button>
+        <button onClick={() => setOpenedSection('Dubinsko')} className="text-white p-2 rounded">
+        <img src="https://static.thenounproject.com/png/614449-200.png" alt="dubinsko" width = "128px" className="mr-2" />
+        </button>        
       {/* Sekcija za Lakiranje */}
       <div className="flex items-center mx-auto">
       <div>        
@@ -483,6 +526,29 @@ export default function Projekti() {
             
             <button onClick={dpf} className="bg-blue-500 text-white p-2 ml-2 rounded">
               Izvrši
+            </button>
+            {showNotification && (
+              <div className="flex w-20 bg-green-200 text-green-800 p-2 rounded mt-4">
+                {successMessage}
+              </div>
+              
+            )}
+            </div>
+            {showNotification1 && (
+              <div className="flex w-20 bg-red-200 text-red-800 p-2 rounded mt-4">
+                {failMessage}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div>
+        {openedSection === 'Dubinsko' && (
+          <div className="mb-4">
+            <b>Dubinjsko pranje automobila.</b>           
+            <div>            
+            <button onClick={dubinsko} className="bg-blue-500 text-white p-2 ml-2 rounded">
+              Odradi dubinsko pranje
             </button>
             {showNotification && (
               <div className="flex w-20 bg-green-200 text-green-800 p-2 rounded mt-4">

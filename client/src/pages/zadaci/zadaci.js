@@ -48,8 +48,7 @@ const Zadaci = ({}) => {
           <tr>
             <th className="py-2 px-4 border-b">ID zadatka</th>
             <th className="py-2 px-4 border-b">Model</th>
-            <th className="py-2 px-4 border-b">Odrađeno</th>
-            {/* Dodajte ostale zaglavlja prema vašim podacima */}
+            <th className="py-2 px-4 border-b">Odrađeno</th>            
           </tr>
         </thead>
         <tbody>

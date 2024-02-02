@@ -342,6 +342,105 @@ export default function Projekti() {
       }, 3000);
     }
   };
+
+  const prodaja = async (e) => {
+    e.preventDefault();
+    try {
+      const authToken = Cookies.get('authData');
+      // Fetch podataka iz tabele "automobili"
+      const automobiliResponse = await fetch(`http://localhost:3001/api/automobili/${editedAutomobil.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${authToken}`,
+        },
+      });
+  
+      if (!automobiliResponse.ok) {
+        throw new Error('Failed to fetch data from "automobili" table');
+      }
+  
+      const automobiliData = await automobiliResponse.json();
+  
+      // Fetch podataka iz tabele "projekti"
+      const projektiResponse = await fetch(`http://localhost:3001/api/zadaci/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${authToken}`,
+        },
+      });
+  
+      if (!projektiResponse.ok) {
+        throw new Error('Failed to fetch data from "projekti" table');
+      }
+  
+      const projektiData = await projektiResponse.json();
+  
+      try {
+        const izabraniModel = modeli.filter((m) => m.model.includes(selectedModel));
+        editedAutomobil.id = izabraniModel[0].id;
+        editedAutomobil.model = izabraniModel[0].model;               
+        const specsString = automobiliData.map(automobil => {
+          return `Model automobila je ${automobil.model}. Pogon automobila je na ${automobil.gorivo} gorivo. Mjenjač je ${automobil.transmisija}. Pogon automobila je ${automobil.pogon}. Godište automobila je ${automobil.godiste}. Automobil ima ${automobil.konjskihsnaga} konjskih snaga. Boja automobila je ${automobil.boja}.`;
+        }).join(' ');
+        const modsString = projektiData.map(projekat => {
+          return `${projekat.odradjeno}.`;
+        }).join(' ');        
+        editedAutomobil.specifikacije = specsString;
+        editedAutomobil.modifikacije = modsString; 
+        console.log(specsString);
+        console.log(modsString);
+        
+        
+  
+        const response = await fetch(`http://localhost:3001/api/projekti/prodaj/${editedAutomobil.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${authToken}`, // Include the authorization token in the headers
+          },
+          body: JSON.stringify(editedAutomobil),
+        });
+        
+        console.log(JSON.stringify(editedAutomobil));
+        
+        const responseData = await response.json();
+        
+  
+        if (!response.ok) {
+          throw new Error('Failed to update the automobil');
+        }
+        
+        if(responseData.success){
+        navigate('/projekti');
+        setSuccessMessage('Uspješno izvršeno!');
+        setShowNotification(true);
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 3000);
+      }
+
+      } catch (error) {
+        console.error('Error updating automobil:', error.message);
+        setFailMessage('Automobil je vec na prodaji!');
+        setShowNotification1(true);
+        setTimeout(() => {
+          setShowNotification1(false);
+        }, 3000);
+      }
+    } catch (error) {
+      console.error('Outer try-catch block error:', error.message);
+      setFailMessage('Automobil je već na prodaji!');
+        setShowNotification1(true);
+        setTimeout(() => {
+          setShowNotification1(false);
+        }, 3000);
+    }
+  };
+  
+
+  
   
 
   return (
@@ -382,6 +481,9 @@ export default function Projekti() {
         </button>
         <button onClick={() => setOpenedSection('Dubinsko')} className="text-white p-2 rounded">
         <img src="https://static.thenounproject.com/png/614449-200.png" alt="dubinsko" width = "128px" className="mr-2" />
+        </button>
+        <button onClick={() => setOpenedSection('Prodaja')} className="text-white p-2 rounded">
+        <img src="https://img.icons8.com/ios-filled/150/car-sale.png" alt="prodaja" width = "128px" className="mr-2" />
         </button>        
       {/* Sekcija za Lakiranje */}
       <div className="flex items-center mx-auto">
@@ -549,6 +651,29 @@ export default function Projekti() {
             <div>            
             <button onClick={dubinsko} className="bg-blue-500 text-white p-2 ml-2 rounded">
               Odradi dubinsko pranje
+            </button>
+            {showNotification && (
+              <div className="flex w-20 bg-green-200 text-green-800 p-2 rounded mt-4">
+                {successMessage}
+              </div>
+              
+            )}
+            </div>
+            {showNotification1 && (
+              <div className="flex w-20 bg-red-200 text-red-800 p-2 rounded mt-4">
+                {failMessage}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div>
+        {openedSection === 'Prodaja' && (
+          <div className="mb-4">
+            <b>Zavrsi projekat i postavi automobil na prodaju.</b>           
+            <div>            
+            <button onClick={prodaja} className="bg-blue-500 text-white p-2 ml-2 rounded">
+              Postavi na prodaju
             </button>
             {showNotification && (
               <div className="flex w-20 bg-green-200 text-green-800 p-2 rounded mt-4">

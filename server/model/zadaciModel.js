@@ -5,6 +5,7 @@ class Modeli {
     db.all('SELECT id, model, odradjeno FROM projekti', callback);
   }
   
+  
 }
 
 module.exports = Modeli;

@@ -10,6 +10,7 @@ const automobiliRoutes = require('./routes/automobili');
 const projektiRoutes = require('./routes/projekti')
 const zadaciRoutes = require('./routes/zadaci')
 const authRoutes = require('./routes/auth');
+const prodajaRoutes = require('./routes/prodaja')
 app.use(express.json());
 app.use(cors());
 const options = {
@@ -31,6 +32,7 @@ app.use('/api/automobili', automobiliRoutes);
 app.use('/api/projekti', projektiRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/zadaci', zadaciRoutes)
+app.use('/api/prodaja', prodajaRoutes)
 
 
 // Start the server

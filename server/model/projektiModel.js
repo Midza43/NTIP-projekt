@@ -43,6 +43,9 @@ class Modeli {
   static dubinsko(automobilId, model, odradjeno, callback) {
     db.run('INSERT INTO projekti (projekat_id, model, odradjeno) VALUES (?, ?, ?)', [automobilId, model, odradjeno], callback);
   }
+  static prodaj(automobilId, model, odradjeno, specifikacije, callback) {
+    db.run('INSERT OR IGNORE INTO prodaja (automobil_id,model,modifikacije,specifikacije) VALUES (?, ?, ?, ?)', [automobilId, model, odradjeno, specifikacije], callback);
+  }
 }
 
 module.exports = Modeli;

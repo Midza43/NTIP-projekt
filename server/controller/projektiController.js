@@ -124,6 +124,23 @@ const projektiController = {
       return res.status(500).json({ error: 'Internal server error.' });
     }
   },
+  prodaj: async (req, res) => {
+    const id = req.params.id;
+    const { model, modifikacije, specifikacije, } = req.body;    
+    try {
+      const result = await Modeli.prodaj(id,model,modifikacije,specifikacije);           
+      if(result.changes > 0)
+      return res.status(200).json({ success: true, message: 'Successfully set on sale.' });
+      else
+      return res.status(200).json({ success: true, message: 'Vec je na prodaji.' });
+    } catch (error) {
+      console.error('Error prodaja:', error.message);
+      return res.status(500).json({ error: `Internal server error: ${error.message}` });
+
+    }
+  },
+
+
 };
 
 

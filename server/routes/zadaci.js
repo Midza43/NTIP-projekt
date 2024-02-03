@@ -17,5 +17,6 @@ router.use(authenticateToken);
  */
 
 router.get('/', zadaciController.getAllZadaci);
+router.get('/:id', zadaciController.getZadaciById);
 
 module.exports = router;

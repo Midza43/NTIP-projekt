@@ -27,7 +27,17 @@ class Automobili {
   }
   static delete(automobilId, callback) {
     db.run('DELETE FROM automobili WHERE id = ?', [automobilId], callback);
-  }  
+  }
+  static prodaj(automobilId, model, odradjeno, specifikacije, callback) {
+    db.run('INSERT OR IGNORE INTO prodaja (automobil_id, model, modifikacije, specifikacije, zahtjev) VALUES (?, ?, ?, ?, ?)', [automobilId, model, odradjeno, specifikacije,'-'], function (err) {
+      if (err) {
+        console.error('Error executing SQL statement:', err.message);
+        return callback(err, { changes: 0 }); // Provide a valid result object in case of an error
+      }
+
+      callback(null, { changes: this.changes }); 
+    });
+  }   
 
 
 

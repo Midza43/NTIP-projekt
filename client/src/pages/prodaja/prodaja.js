@@ -50,7 +50,7 @@ const Prodaja = ({}) => {
         body: JSON.stringify(data),
       });    
       
-      console.log(response);
+      console.log(data);
       
 
       if (!response.ok) {
@@ -90,7 +90,7 @@ const Prodaja = ({}) => {
 
       <table className="min-w-full bg-white border border-gray-300 text-center">
         <thead>
-          <tr>
+          <tr>            
             <th className="py-2 px-4 border-b">Model</th>
             <th className="py-2 px-4 border-b">Specifikacije</th>
             <th className="py-2 px-4 border-b">Modifikacije</th>            
@@ -98,7 +98,7 @@ const Prodaja = ({}) => {
         </thead>
         <tbody>
           {Prodaja.slice(pagesVisited, pagesVisited + tasksPerPage).map(task => (
-            <tr key={task.id}>
+            <tr key={task.id}>              
               <td className="py-2 px-4 border-b">{task.model}</td>
               <td className="py-2 px-4 border-b">{task.specifikacije}</td>
               <td className="py-2 px-4 border-b">{task.modifikacije}</td>

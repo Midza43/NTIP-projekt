@@ -21,5 +21,5 @@ router.get('/:id', automobiliController.getAutomobiliById);
 router.post('/', automobiliController.createAutomobili);
 router.put('/:id', automobiliController.updateAutomobili);
 router.delete('/:id', automobiliController.deleteAutomobili);
-
+router.put('/prodaj/:id', automobiliController.prodajAutomobili);
 module.exports = router;
